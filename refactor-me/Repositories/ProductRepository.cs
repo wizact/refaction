@@ -26,14 +26,27 @@ namespace refactor_me.Repositories
             return products;
         }
 
-        public Products SearchByProductName()
+        public Products SearchByProductName(string name)
         {
-            throw new NotImplementedException();
+            var products = new Products();
+
+            using (var conn = GetNewConnection())
+            {
+                var cmd = new SqlCommand($"select id from product where name like '%{name}%'", conn);
+                conn.Open();
+
+                var rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    products.Items.Add(MapProduct(rdr));
+                }
+            }
+
+            return products;
         }
 
         public Product GetProductById(Guid id)
         {
-            // TODO: validate id
             using (var conn = GetNewConnection())
             {
                 var cmd = new SqlCommand($"select * from product where id = '{id}'", conn);
@@ -43,7 +56,6 @@ namespace refactor_me.Repositories
                 if (!rdr.Read())
                     return default(Product);
 
-                // TODO: Change to mapper
                 var product = MapProduct(rdr);
 
                 return product;

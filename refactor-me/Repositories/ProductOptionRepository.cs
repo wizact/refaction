@@ -1,0 +1,86 @@
+﻿using refactor_me.Repositories.Interfaces;
+using System;
+using refactor_me.Models;
+using System.Data.SqlClient;
+
+namespace refactor_me.Repositories
+{
+    public class ProductOptionRepository : BaseRepository, IProductOptionRepository
+    {
+        public void CreateProductOptionForProduct(ProductOption productOption)
+        {
+            using (var conn = GetNewConnection())
+            {
+                var cmd = new SqlCommand($"update productoption set name = '{productOption.Name}', description = '{productOption.Description}' where id = '{productOption.Id}'", conn);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void DeleteProductOption(Guid id)
+        {
+            using (var conn = GetNewConnection())
+            {
+                conn.Open();
+                var cmd = new SqlCommand($"delete from productoption where id = '{id}'", conn);
+                cmd.ExecuteReader();
+            }
+        }
+
+        public ProductOption GetProductOption(Guid productOptionId)
+        {
+            using (var conn = GetNewConnection())
+            {
+                var cmd = new SqlCommand($"select * from productoption where id = '{productOptionId}'", conn);
+                conn.Open();
+
+                var rdr = cmd.ExecuteReader();
+                if (!rdr.Read())
+                    return default(ProductOption);
+
+                return MapToProductOption(rdr);
+            }
+        }
+
+        public ProductOptions GetProductOptionsForProduct(Guid productId)
+        {
+            var productOptions = new ProductOptions();
+
+            using (var conn = GetNewConnection())
+            {
+                var cmd = new SqlCommand($"select id from productoption where productid = '{productId}'", conn);
+                conn.Open();
+
+                var rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    productOptions.Items.Add(MapToProductOption(rdr));
+                }
+            }
+
+            return productOptions;
+        }
+
+        public void UpdateProductOption(ProductOption productOption)
+        {
+            using (var conn = GetNewConnection())
+            {
+                var cmd = new SqlCommand($"update productoption set name = '{productOption.Name}', description = '{productOption.Description}' where id = '{productOption.Id}'", conn);
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        private ProductOption MapToProductOption(SqlDataReader rdr)
+        {
+            return new ProductOption
+            {
+                Id = Guid.Parse(rdr["Id"].ToString()),
+                ProductId = Guid.Parse(rdr["ProductId"].ToString()),
+                Name = rdr["Name"].ToString(),
+                Description = (DBNull.Value == rdr["Description"]) ? null : rdr["Description"].ToString()
+            };
+        }
+
+    }
+}

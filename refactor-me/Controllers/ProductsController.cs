@@ -2,32 +2,47 @@
 using System.Net;
 using System.Web.Http;
 using refactor_me.Models;
+using refactor_me.Services.Interfaces;
+using refactor_me.Services;
+using refactor_me.Repositories;
 
 namespace refactor_me.Controllers
 {
     [RoutePrefix("products")]
     public class ProductsController : ApiController
     {
+        private readonly IProductService _productService;
+        private readonly IProductOptionService _productOptionService;
+
+        public ProductsController()
+        {
+            // TODO: Change to DI
+            _productService = new ProductService(new ProductRepository());
+            _productOptionService = new ProductOptionService(new ProductOptionRepository());
+        }
+
         [Route]
         [HttpGet]
         public Products GetAll()
         {
-            return new Products();
+            return _productService.GetAllProducts();
         }
 
         [Route]
         [HttpGet]
         public Products SearchByName(string name)
         {
-            return new Products(name);
+            return _productService.SearchByProductName(name);
         }
 
         [Route("{id}")]
         [HttpGet]
         public Product GetProduct(Guid id)
         {
-            var product = new Product(id);
-            if (product.IsNew)
+            var product = _productService.GetProductById(id);
+
+            // TODO: Test this
+            if (product.Id == Guid.Empty)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             return product;
@@ -37,79 +52,96 @@ namespace refactor_me.Controllers
         [HttpPost]
         public void Create(Product product)
         {
-            product.Save();
+            // Validate data
+            // Set Id
+            _productService.CreateProduct(product);
+            // Set the http status
+            // Set the id in th elocation header
         }
 
         [Route("{id}")]
         [HttpPut]
         public void Update(Guid id, Product product)
         {
-            var orig = new Product(id)
-            {
-                Name = product.Name,
-                Description = product.Description,
-                Price = product.Price,
-                DeliveryPrice = product.DeliveryPrice
-            };
+            // investigate model binding
+            // validate the id
+            var existingProduct = _productService.GetProductById(id);
 
-            if (!orig.IsNew)
-                orig.Save();
+            if (existingProduct.Id == Guid.Empty)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            existingProduct.Name = product.Name;
+            existingProduct.Description = product.Description;
+            existingProduct.Price = product.Price;
+            existingProduct.DeliveryPrice = product.DeliveryPrice;
+
+            _productService.UpdateProduct(existingProduct);
+
+            // Set the http status
         }
 
         [Route("{id}")]
         [HttpDelete]
         public void Delete(Guid id)
         {
-            var product = new Product(id);
-            product.Delete();
+            _productService.DeleteProduct(id);
         }
 
         [Route("{productId}/options")]
         [HttpGet]
         public ProductOptions GetOptions(Guid productId)
         {
-            return new ProductOptions(productId);
+            //TODO: Validate product Id is valid
+            return _productOptionService.GetProductOptionsForProduct(productId);
         }
 
         [Route("{productId}/options/{id}")]
         [HttpGet]
         public ProductOption GetOption(Guid productId, Guid id)
         {
-            var option = new ProductOption(id);
-            if (option.IsNew)
+            // Validate Product Id
+            var productOption = _productOptionService.GetProductOption(id);
+
+            if (productOption.Id == Guid.Empty)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            return option;
+            return productOption;
         }
 
         [Route("{productId}/options")]
         [HttpPost]
-        public void CreateOption(Guid productId, ProductOption option)
+        public void CreateOption(Guid productId, ProductOption productOption)
         {
-            option.ProductId = productId;
-            option.Save();
+            // validate product id is valid
+            productOption.ProductId = productId;
+            _productOptionService.CreateProductOptionForProduct(productOption);
+            
+            // Set the location header
+            // Return status code for created
         }
 
         [Route("{productId}/options/{id}")]
         [HttpPut]
         public void UpdateOption(Guid id, ProductOption option)
         {
-            var orig = new ProductOption(id)
-            {
-                Name = option.Name,
-                Description = option.Description
-            };
+            // Validate option and product id exist and they are related
 
-            if (!orig.IsNew)
-                orig.Save();
+            var existingProductOption = _productOptionService.GetProductOption(id);
+
+            existingProductOption.Name = option.Name;
+            existingProductOption.Description = option.Description;
+
+            _productOptionService.UpdateProductOption(existingProductOption);
         }
 
         [Route("{productId}/options/{id}")]
         [HttpDelete]
         public void DeleteOption(Guid id)
         {
-            var opt = new ProductOption(id);
-            opt.Delete();
+            // Validate the product id and id and if they are related
+            _productOptionService.DeleteProductOption(id);
         }
     }
 }

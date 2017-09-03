@@ -9,7 +9,7 @@ namespace refactor_me.Repositories.Interfaces
         void DeleteProduct(Guid id);
         Products GetAllProducts();
         Product GetProductById(Guid id);
-        Products SearchByProductName();
+        Products SearchByProductName(string productName);
         void UpdateProduct(Product product);
     }
 }
