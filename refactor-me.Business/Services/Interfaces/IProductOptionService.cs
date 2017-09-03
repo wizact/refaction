@@ -1,7 +1,7 @@
 ﻿using refactor_me.Models;
 using System;
 
-namespace refactor_me.Services.Interfaces
+namespace refactor_me.Business.Services.Interfaces
 {
     public interface IProductOptionService
     {

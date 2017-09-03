@@ -1,7 +1,7 @@
 ﻿using System;
-using refactor_me.Models;
+using refactor_me.Data.Entities;
 
-namespace refactor_me.Repositories.Interfaces
+namespace refactor_me.Data.Repositories.Interfaces
 {
     public interface IProductRepository
     {

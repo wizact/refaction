@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data.SqlClient;
-using refactor_me.Models;
-using refactor_me.Repositories.Interfaces;
+using refactor_me.Data.Entities;
+using refactor_me.Data.Repositories.Interfaces;
 
-namespace refactor_me.Repositories
+namespace refactor_me.Data.Repositories
 {
     public class ProductRepository : BaseRepository, IProductRepository
     {

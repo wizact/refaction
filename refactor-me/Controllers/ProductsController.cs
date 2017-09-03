@@ -2,9 +2,7 @@
 using System.Net;
 using System.Web.Http;
 using refactor_me.Models;
-using refactor_me.Services.Interfaces;
-using refactor_me.Services;
-using refactor_me.Repositories;
+using refactor_me.Business.Services.Interfaces;
 
 namespace refactor_me.Controllers
 {
@@ -14,11 +12,10 @@ namespace refactor_me.Controllers
         private readonly IProductService _productService;
         private readonly IProductOptionService _productOptionService;
 
-        public ProductsController()
+        public ProductsController(IProductService productService, IProductOptionService productOptionService)
         {
-            // TODO: Change to DI
-            _productService = new ProductService(new ProductRepository());
-            _productOptionService = new ProductOptionService(new ProductOptionRepository());
+            _productService = productService;
+            _productOptionService = productOptionService;
         }
 
         [Route]

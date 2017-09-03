@@ -1,7 +1,7 @@
 ﻿using System.Data.SqlClient;
 using System.Web;
 
-namespace refactor_me.Repositories
+namespace refactor_me.Data.Repositories
 {
     public abstract class BaseRepository
     {
@@ -10,7 +10,7 @@ namespace refactor_me.Repositories
 
         internal SqlConnection GetNewConnection()
         {
-            var connstr = ConnectionString.Replace("{DataDirectory}", HttpContext.Current.Server.MapPath("~/App_Data"));
+            var connstr = ConnectionString.Replace("{DataDirectory}", "HttpContext.Current.Server.MapPath(\"~/App_Data\")");
             return new SqlConnection(connstr);
         }
     }

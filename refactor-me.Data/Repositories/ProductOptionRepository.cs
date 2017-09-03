@@ -1,9 +1,9 @@
-﻿using refactor_me.Repositories.Interfaces;
-using System;
-using refactor_me.Models;
+﻿using System;
+using refactor_me.Data.Entities;
 using System.Data.SqlClient;
+using refactor_me.Data.Repositories.Interfaces;
 
-namespace refactor_me.Repositories
+namespace refactor_me.Data.Repositories
 {
     public class ProductOptionRepository : BaseRepository, IProductOptionRepository
     {

@@ -1,7 +1,7 @@
-﻿using refactor_me.Models;
+﻿using refactor_me.Data.Entities;
 using System;
 
-namespace refactor_me.Repositories.Interfaces
+namespace refactor_me.Data.Repositories.Interfaces
 {
     public interface IProductOptionRepository
     {
@@ -14,7 +14,5 @@ namespace refactor_me.Repositories.Interfaces
         void UpdateProductOption(ProductOption productOption);
 
         void DeleteProductOption(Guid id);
-
-
     }
 }
