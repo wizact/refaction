@@ -1,5 +1,6 @@
 ﻿using System;
 using refactor_me.Data.Entities;
+using System.Collections.Generic;
 
 namespace refactor_me.Data.Repositories.Interfaces
 {
@@ -7,9 +8,9 @@ namespace refactor_me.Data.Repositories.Interfaces
     {
         Guid CreateProduct(Product product);
         void DeleteProduct(Guid id);
-        Products GetAllProducts();
+        List<Product> GetAllProducts();
         Product GetProductById(Guid id);
-        Products SearchByProductName(string productName);
+        List<Product> SearchByProductName(string productName);
         void UpdateProduct(Product product);
     }
 }

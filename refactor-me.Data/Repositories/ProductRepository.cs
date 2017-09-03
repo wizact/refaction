@@ -2,14 +2,15 @@
 using System.Data.SqlClient;
 using refactor_me.Data.Entities;
 using refactor_me.Data.Repositories.Interfaces;
+using System.Collections.Generic;
 
 namespace refactor_me.Data.Repositories
 {
     public class ProductRepository : BaseRepository, IProductRepository
     {
-        public Products GetAllProducts()
+        public List<Product> GetAllProducts()
         {
-            var products = new Products();
+            var products = new List<Product>();
 
             using (var conn = GetNewConnection())
             {
@@ -19,16 +20,16 @@ namespace refactor_me.Data.Repositories
                 var rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    products.Items.Add(MapProduct(rdr));
+                    products.Add(MapProduct(rdr));
                 }
             }
 
             return products;
         }
 
-        public Products SearchByProductName(string name)
+        public List<Product> SearchByProductName(string name)
         {
-            var products = new Products();
+            var products = new List<Product>();
 
             using (var conn = GetNewConnection())
             {
@@ -38,7 +39,7 @@ namespace refactor_me.Data.Repositories
                 var rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    products.Items.Add(MapProduct(rdr));
+                    products.Add(MapProduct(rdr));
                 }
             }
 

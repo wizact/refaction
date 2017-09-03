@@ -45,7 +45,7 @@ namespace refactor_me.Business.Services
             var mapper = GetMapper<ProductOption, Data.Entities.ProductOption>();
 
             var productOptionsModel = new ProductOptions();
-            productOptionsEntity.Items.ForEach(poe => { productOptionsModel.Items.Add(mapper.ToModel(poe)); });
+            productOptionsEntity.ForEach(poe => { productOptionsModel.Items.Add(mapper.ToModel(poe)); });
 
             return productOptionsModel;
         }

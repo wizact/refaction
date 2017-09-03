@@ -43,8 +43,6 @@
   <ItemGroup>
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\ProductOption.cs" />
-    <Compile Include="Entities\ProductOptions.cs" />
-    <Compile Include="Entities\Products.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Repositories\Interfaces\IProductOptionRepository.cs" />

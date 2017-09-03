@@ -2,6 +2,7 @@
 using refactor_me.Data.Entities;
 using System.Data.SqlClient;
 using refactor_me.Data.Repositories.Interfaces;
+using System.Collections.Generic;
 
 namespace refactor_me.Data.Repositories
 {
@@ -42,9 +43,9 @@ namespace refactor_me.Data.Repositories
             }
         }
 
-        public ProductOptions GetProductOptionsForProduct(Guid productId)
+        public List<ProductOption> GetProductOptionsForProduct(Guid productId)
         {
-            var productOptions = new ProductOptions();
+            var productOptions = new List<ProductOption>();
 
             using (var conn = GetNewConnection())
             {
@@ -54,7 +55,7 @@ namespace refactor_me.Data.Repositories
                 var rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    productOptions.Items.Add(MapToProductOption(rdr));
+                    productOptions.Add(MapToProductOption(rdr));
                 }
             }
 

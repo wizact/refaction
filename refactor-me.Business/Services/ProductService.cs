@@ -40,7 +40,7 @@ namespace refactor_me.Business.Services
             var modelProducts = new Products();
             var productMapper = GetMapper<Product, Data.Entities.Product>();
 
-            entityProducts.Items.ForEach(entityProduct => modelProducts.Items.Add(productMapper.ToModel(entityProduct)));
+            entityProducts.ForEach(entityProduct => modelProducts.Items.Add(productMapper.ToModel(entityProduct)));
 
             return modelProducts;
         }
@@ -59,7 +59,7 @@ namespace refactor_me.Business.Services
             var productMapper = GetMapper<Product, Data.Entities.Product>();
             var entityProducts = _productRepository.SearchByProductName(productName);
 
-            entityProducts.Items.ForEach(entityProduct => modelProducts.Items.Add(productMapper.ToModel(entityProduct)));
+            entityProducts.ForEach(entityProduct => modelProducts.Items.Add(productMapper.ToModel(entityProduct)));
 
             return modelProducts;
         }
