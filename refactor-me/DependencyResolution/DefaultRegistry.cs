@@ -30,7 +30,9 @@ namespace refactor_me.DependencyResolution {
                     scan.With(new ControllerConvention());
                     scan.AssembliesFromApplicationBaseDirectory();
                 });
-            //For<IExample>().Use<Example>();
+
+            For<Business.Mappers.Interfaces.IMapper>().Add<Business.Mappers.ProductMapper>();
+            For<Business.Mappers.Interfaces.IMapper>().Add<Business.Mappers.ProductOptionMapper>();
         }
 
         #endregion

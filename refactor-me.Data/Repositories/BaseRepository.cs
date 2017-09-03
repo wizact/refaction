@@ -10,7 +10,7 @@ namespace refactor_me.Data.Repositories
 
         internal SqlConnection GetNewConnection()
         {
-            var connstr = ConnectionString.Replace("{DataDirectory}", "HttpContext.Current.Server.MapPath(\"~/App_Data\")");
+            var connstr = ConnectionString.Replace("{DataDirectory}", HttpContext.Current.Server.MapPath("~/App_Data"));
             return new SqlConnection(connstr);
         }
     }

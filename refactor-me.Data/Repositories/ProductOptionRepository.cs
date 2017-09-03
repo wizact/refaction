@@ -48,7 +48,7 @@ namespace refactor_me.Data.Repositories
 
             using (var conn = GetNewConnection())
             {
-                var cmd = new SqlCommand($"select id from productoption where productid = '{productId}'", conn);
+                var cmd = new SqlCommand($"select * from productoption where productid = '{productId}'", conn);
                 conn.Open();
 
                 var rdr = cmd.ExecuteReader();
