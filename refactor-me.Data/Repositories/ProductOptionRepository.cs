@@ -12,7 +12,13 @@ namespace refactor_me.Data.Repositories
         {
             using (var conn = GetNewConnection())
             {
-                var cmd = new SqlCommand($"insert into productoption (id, productid, name, description) values ('{productOption.Id}', '{productOption.ProductId}', '{productOption.Name}', '{productOption.Description}')", conn);
+                var cmd = new SqlCommand("insert into productoption (id, productid, name, description) values (@ProductOptionId, @ProductId , @Name, @Description)", conn);
+
+                cmd.Parameters.AddWithValue("@ProductOptionId", productOption.Id);
+                cmd.Parameters.AddWithValue("@ProductId", productOption.ProductId);
+                cmd.Parameters.AddWithValue("@Name", productOption.Name);
+                cmd.Parameters.AddWithValue("@Description", productOption.Description);
+
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
@@ -23,7 +29,8 @@ namespace refactor_me.Data.Repositories
             using (var conn = GetNewConnection())
             {
                 conn.Open();
-                var cmd = new SqlCommand($"delete from productoption where id = '{id}'", conn);
+                var cmd = new SqlCommand("delete from productoption where id = @ProductOptionId", conn);
+                cmd.Parameters.AddWithValue("@ProductOptionId", id);
                 cmd.ExecuteReader();
             }
         }
@@ -33,7 +40,8 @@ namespace refactor_me.Data.Repositories
             using (var conn = GetNewConnection())
             {
                 conn.Open();
-                var cmd = new SqlCommand($"delete from productoption where ProductId = '{productId}'", conn);
+                var cmd = new SqlCommand("delete from productoption where ProductId = @ProductId", conn);
+                cmd.Parameters.AddWithValue("@ProductId", productId);
                 cmd.ExecuteReader();
             }
         }
@@ -42,7 +50,8 @@ namespace refactor_me.Data.Repositories
         {
             using (var conn = GetNewConnection())
             {
-                var cmd = new SqlCommand($"select * from productoption where id = '{productOptionId}'", conn);
+                var cmd = new SqlCommand("select * from productoption where id = @ProductOptionId", conn);
+                cmd.Parameters.AddWithValue("@ProductOptionId", productOptionId);
                 conn.Open();
 
                 var rdr = cmd.ExecuteReader();
@@ -59,7 +68,9 @@ namespace refactor_me.Data.Repositories
 
             using (var conn = GetNewConnection())
             {
-                var cmd = new SqlCommand($"select * from productoption where productid = '{productId}'", conn);
+                var cmd = new SqlCommand("select * from productoption where productid = @ProductId", conn);
+                cmd.Parameters.AddWithValue("@ProductId", productId);
+
                 conn.Open();
 
                 var rdr = cmd.ExecuteReader();
@@ -76,7 +87,12 @@ namespace refactor_me.Data.Repositories
         {
             using (var conn = GetNewConnection())
             {
-                var cmd = new SqlCommand($"update productoption set name = '{productOption.Name}', description = '{productOption.Description}' where id = '{productOption.Id}'", conn);
+                var cmd = new SqlCommand("update productoption set name = @Name, description = @Description where id = @productOptionId", conn);
+
+                cmd.Parameters.AddWithValue("@Name", productOption.Name);
+                cmd.Parameters.AddWithValue("@Description", productOption.Description);
+                cmd.Parameters.AddWithValue("@productOptionId", productOption.Id);
+
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }

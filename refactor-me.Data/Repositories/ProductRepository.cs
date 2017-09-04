@@ -33,7 +33,9 @@ namespace refactor_me.Data.Repositories
 
             using (var conn = GetNewConnection())
             {
-                var cmd = new SqlCommand($"select * from product where name like '%{name}%'", conn);
+                var cmd = new SqlCommand("select * from product where name like @ProductName", conn);
+                cmd.Parameters.AddWithValue("@ProductName", $"%{name}%");
+
                 conn.Open();
 
                 var rdr = cmd.ExecuteReader();
@@ -50,7 +52,8 @@ namespace refactor_me.Data.Repositories
         {
             using (var conn = GetNewConnection())
             {
-                var cmd = new SqlCommand($"select * from product where id = '{id}'", conn);
+                var cmd = new SqlCommand("select * from product where id = @ProductId", conn);
+                cmd.Parameters.AddWithValue("@ProductId", id);
                 conn.Open();
 
                 var rdr = cmd.ExecuteReader();
@@ -80,7 +83,9 @@ namespace refactor_me.Data.Repositories
         {
             using (var conn = GetNewConnection())
             {
-                var cmd = new SqlCommand($"select count(id) from product where id = '{id}'", conn);
+                var cmd = new SqlCommand("select count(id) from product where id = @ProductId", conn);
+                cmd.Parameters.AddWithValue("@ProductId", id);
+
                 conn.Open();
 
                 return (int)cmd.ExecuteScalar() > 0;
@@ -92,8 +97,14 @@ namespace refactor_me.Data.Repositories
             using (var conn = GetNewConnection())
             {
                 var cmd = new SqlCommand(
-                    $"insert into product (id, name, description, price, deliveryprice) values ('{product.Id}', '{product.Name}', '{product.Description}', {product.Price}, {product.DeliveryPrice})",
+                    "insert into product (id, name, description, price, deliveryprice) values (@Id, @Name, @Description, @Price, @DeliveryPrice)",
                     conn);
+
+                cmd.Parameters.AddWithValue("@Id", product.Id);
+                cmd.Parameters.AddWithValue("@Name", product.Name);
+                cmd.Parameters.AddWithValue("@Description", product.Description);
+                cmd.Parameters.AddWithValue("@Price", product.Price);
+                cmd.Parameters.AddWithValue("@DeliveryPrice", product.DeliveryPrice);
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
@@ -106,7 +117,14 @@ namespace refactor_me.Data.Repositories
         {
             using (var conn = GetNewConnection())
             {
-                var cmd = new SqlCommand($"update product set name = '{product.Name}', description = '{product.Description}', price = {product.Price}, deliveryprice = {product.DeliveryPrice} where id = '{product.Id}'", conn);
+                var cmd = new SqlCommand("update product set name = @Name, description = @Description, price = @Price, deliveryprice = @DeliveryPrice where id = @Id", conn);
+
+                cmd.Parameters.AddWithValue("@Id", product.Id);
+                cmd.Parameters.AddWithValue("@Name", product.Name);
+                cmd.Parameters.AddWithValue("@Description", product.Description);
+                cmd.Parameters.AddWithValue("@Price", product.Price);
+                cmd.Parameters.AddWithValue("@DeliveryPrice", product.DeliveryPrice);
+
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
@@ -116,8 +134,10 @@ namespace refactor_me.Data.Repositories
         {
             using (var conn = GetNewConnection())
             {
+                var cmd = new SqlCommand("delete from product where id = @Id", conn);
+                cmd.Parameters.AddWithValue("@Id", id);
+
                 conn.Open();
-                var cmd = new SqlCommand($"delete from product where id = '{id}'", conn);
                 cmd.ExecuteNonQuery();
             }
         }

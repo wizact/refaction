@@ -42,7 +42,7 @@ namespace refactor_me.Controllers
 
             var product = _productService.GetProductById(id);
 
-            if (product.Id == Guid.Empty)
+            if (product == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             return product;
