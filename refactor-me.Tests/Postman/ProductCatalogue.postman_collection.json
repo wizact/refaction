@@ -1,0 +1,228 @@
+{
+	"variables": [],
+	"info": {
+		"name": "ProductCatalogue",
+		"_postman_id": "12bf4d1c-ed5c-986a-8259-a174e136cc4d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Product",
+			"request": {
+				"url": "http://localhost:58123/Products/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Name\": \"Test Product 2\",\n    \"Description\": \"Newest mobile product from Apple. \",\n    \"Price\": 1299.99,\n    \"DeliveryPrice\": 15.99\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product",
+			"request": {
+				"url": "http://localhost:58123/Products/de1287c0-4b15-4a7b-9d8a-dd21b3cafec3",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Products",
+			"request": {
+				"url": "http://localhost:58123/Products/",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update Product",
+			"request": {
+				"url": "http://localhost:58123/Products/dd488d13-ea36-4dcf-a431-8183734bd4f9",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Name\": \"Test Product 3\",\n    \"Description\": \"Newest mobile product from Apple. \",\n    \"Price\": 1299.99,\n    \"DeliveryPrice\": 15.99\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Product",
+			"request": {
+				"url": "http://localhost:58123/Products/dd488d13-ea36-4dcf-a431-8183734bd4f9",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Search Product",
+			"request": {
+				"url": {
+					"raw": "http://localhost:58123/Products?name=phone",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "58123",
+					"path": [
+						"Products"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "phone",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Product Options",
+			"request": {
+				"url": "http://localhost:58123/Products/dd488d13-ea36-4dcf-a431-8183734bd4f9/Options",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product Option",
+			"request": {
+				"url": "http://localhost:58123/Products/0cd5e2ec-3c19-4445-9a6e-57840adc0f53/Options",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n            \"Name\": \"Rose Gold\",\n            \"Description\": \"Gold Apple iPhone 6S\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get a Product Option",
+			"request": {
+				"url": "http://localhost:58123/Products/0cd5e2ec-3c19-4445-9a6e-57840adc0f53/Options/8cd1af4b-5938-4030-be90-92750928cdb5",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n            \"Name\": \"Rose Gold\",\n            \"Description\": \"Gold Apple iPhone 6S\"\n        }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get a Product Option",
+			"request": {
+				"url": "http://localhost:58123/Products/0cd5e2ec-3c19-4445-9a6e-57840adc0f53/Options/8b5c04eb-a611-4c63-a778-6ba6e7b85581",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update a Product Option",
+			"request": {
+				"url": "http://localhost:58123/Products/0cd5e2ec-3c19-4445-9a6e-57840adc0f53/Options//8b5c04eb-a611-4c63-a778-6ba6e7b85581",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n            \"Name\": \"Rose Gold Update\",\n            \"Description\": \"Gold Apple iPhone 6S Update\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Product Option",
+			"request": {
+				"url": "http://localhost:58123/Products/0cd5e2ec-3c19-4445-9a6e-57840adc0f53/Options//8b5c04eb-a611-4c63-a778-6ba6e7b85581",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
