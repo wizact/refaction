@@ -1,5 +1,4 @@
-﻿using System;
-using refactor_me.Business.Mappers.Interfaces;
+﻿using refactor_me.Business.Mappers.Interfaces;
 
 namespace refactor_me.Business.Mappers
 {
