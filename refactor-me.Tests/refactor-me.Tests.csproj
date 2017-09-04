@@ -114,6 +114,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProductMapperTests.cs" />
     <Compile Include="ProductOptionMapperTests.cs" />
+    <Compile Include="ProductOptionsControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

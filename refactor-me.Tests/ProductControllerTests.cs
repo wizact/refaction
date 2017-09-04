@@ -132,39 +132,5 @@ namespace refactor_me.Tests
             // Assert:
             Assert.AreEqual(HttpStatusCode.NoContent, updateProductResponse.StatusCode);
         }
-
-        [TestMethod]
-        public void when_returning_product_options_then_existence_of_product_should_get_validated_first()
-        {
-            // Arrange:
-            var productServiceMock = new Mock<IProductService>();
-            productServiceMock.Setup(m => m.GetProductById(It.IsAny<Guid>())).Returns(default(Product));
-
-            var productOptionServiceMock = new Mock<IProductOptionService>();
-            var productsController = new ProductsController(productServiceMock.Object, productOptionServiceMock.Object);
-
-            // Act:
-            Action getProductOptions = () => productsController.GetOptions(Guid.NewGuid());
-
-            // Assert:
-            Assert.Throws<HttpResponseException>(getProductOptions);
-        }
-
-        [TestMethod]
-        public void when_returning_a_product_option_then_existence_of_product_should_get_validated_first()
-        {
-            // Arrange:
-            var productServiceMock = new Mock<IProductService>();
-            productServiceMock.Setup(m => m.GetProductById(It.IsAny<Guid>())).Returns(default(Product));
-
-            var productOptionServiceMock = new Mock<IProductOptionService>();
-            var productsController = new ProductsController(productServiceMock.Object, productOptionServiceMock.Object);
-
-            // Act:
-            Action getProductOption = () => productsController.GetOption(Guid.NewGuid(), Guid.NewGuid());
-
-            // Assert:
-            Assert.Throws<HttpResponseException>(getProductOption);
-        }
     }
 }
