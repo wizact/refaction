@@ -14,5 +14,7 @@ namespace refactor_me.Business.Services.Interfaces
         ProductOptions GetProductOptionsForProduct(Guid productId);
 
         void UpdateProductOption(ProductOption productOption);
+
+        void DeleteProductOptionByProductId(Guid productId);
     }
 }

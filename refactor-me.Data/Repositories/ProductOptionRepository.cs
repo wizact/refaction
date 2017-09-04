@@ -12,7 +12,7 @@ namespace refactor_me.Data.Repositories
         {
             using (var conn = GetNewConnection())
             {
-                var cmd = new SqlCommand($"update productoption set name = '{productOption.Name}', description = '{productOption.Description}' where id = '{productOption.Id}'", conn);
+                var cmd = new SqlCommand($"insert into productoption (id, productid, name, description) values ('{productOption.Id}', '{productOption.ProductId}', '{productOption.Name}', '{productOption.Description}')", conn);
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
@@ -24,6 +24,16 @@ namespace refactor_me.Data.Repositories
             {
                 conn.Open();
                 var cmd = new SqlCommand($"delete from productoption where id = '{id}'", conn);
+                cmd.ExecuteReader();
+            }
+        }
+
+        public void DeleteProductOptionByProductId(Guid productId)
+        {
+            using (var conn = GetNewConnection())
+            {
+                conn.Open();
+                var cmd = new SqlCommand($"delete from productoption where ProductId = '{productId}'", conn);
                 cmd.ExecuteReader();
             }
         }

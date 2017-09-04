@@ -153,6 +153,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validators\BaseValidator.cs" />
+    <Compile Include="Validators\GuidValidator.cs" />
+    <Compile Include="Validators\ProductOptionValidator.cs" />
+    <Compile Include="Validators\ProductValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

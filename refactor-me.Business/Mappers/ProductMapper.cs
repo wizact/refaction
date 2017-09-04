@@ -7,6 +7,11 @@ namespace refactor_me.Business.Mappers
     {
         public Models.Product ToModel(Data.Entities.Product productEntity)
         {
+            if(productEntity == null)
+            {
+                return default(Models.Product);
+            }
+
             return new Models.Product
             {
                 Id = productEntity.Id,
@@ -27,11 +32,6 @@ namespace refactor_me.Business.Mappers
                 Description = productModel.Description,
                 Price = productModel.Price
             };
-        }
-
-        public bool AppliesTo(Type modelType, Type entityType)
-        {
-            return modelType == typeof(Models.Product) && entityType == typeof(Data.Entities.Product);
         }
     }
 }

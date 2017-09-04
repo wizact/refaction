@@ -20,16 +20,18 @@ namespace refactor_me.Business.Services
 
         public void CreateProductOptionForProduct(ProductOption productOption)
         {
-            productOption.Id = Guid.NewGuid();
-
             var productOptionEntity = GetMapper<ProductOption, Data.Entities.ProductOption>().ToEntity(productOption);
-
             _productOptionRepository.CreateProductOptionForProduct(productOptionEntity);
         }
 
         public void DeleteProductOption(Guid id)
         {
             _productOptionRepository.DeleteProductOption(id);
+        }
+
+        public void DeleteProductOptionByProductId(Guid productId)
+        {
+            _productOptionRepository.DeleteProductOptionByProductId(productId);
         }
 
         public ProductOption GetProductOption(Guid productOptionId)

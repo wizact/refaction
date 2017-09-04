@@ -33,7 +33,7 @@ namespace refactor_me.Data.Repositories
 
             using (var conn = GetNewConnection())
             {
-                var cmd = new SqlCommand($"select id from product where name like '%{name}%'", conn);
+                var cmd = new SqlCommand($"select * from product where name like '%{name}%'", conn);
                 conn.Open();
 
                 var rdr = cmd.ExecuteReader();

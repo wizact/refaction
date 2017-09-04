@@ -29,7 +29,6 @@ namespace refactor_me.Business.Services
 
         public void DeleteProduct(Guid id)
         {
-            // TODO: validate id but should stay idempotent, should delete product options, should implement UOW
             _productRepository.DeleteProduct(id);
         }
 
@@ -47,14 +46,12 @@ namespace refactor_me.Business.Services
 
         public Product GetProductById(Guid id)
         {
-            // TODO: validate id
             var productMapper = GetMapper<Product, Data.Entities.Product>();
             return productMapper.ToModel(_productRepository.GetProductById(id));
         }
 
         public Products SearchByProductName(string productName)
         {
-            // TODO: Chaange to a more generic search
             var modelProducts = new Products();
             var productMapper = GetMapper<Product, Data.Entities.Product>();
             var entityProducts = _productRepository.SearchByProductName(productName);
@@ -66,7 +63,6 @@ namespace refactor_me.Business.Services
 
         public void UpdateProduct(Product product)
         {
-            // TODO: validate id, Id should stay the same
             var productMapper = GetMapper<Product, Data.Entities.Product>();
             _productRepository.UpdateProduct(productMapper.ToEntity(product));
         }

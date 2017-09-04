@@ -15,5 +15,7 @@ namespace refactor_me.Data.Repositories.Interfaces
         void UpdateProductOption(ProductOption productOption);
 
         void DeleteProductOption(Guid id);
+
+        void DeleteProductOptionByProductId(Guid productId);
     }
 }
