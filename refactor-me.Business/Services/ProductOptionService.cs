@@ -15,7 +15,7 @@ namespace refactor_me.Business.Services
         public ProductOptionService(IProductOptionRepository productOptionRepository, IEnumerable<IMapper> mappers)
         {
             _productOptionRepository = productOptionRepository;
-            _mappers = mappers.ToList();
+            Mappers = mappers.ToList();
         }
 
         public void CreateProductOptionForProduct(ProductOption productOption)

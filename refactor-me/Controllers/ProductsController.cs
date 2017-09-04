@@ -53,7 +53,7 @@ namespace refactor_me.Controllers
         public HttpResponseMessage Create(Product product)
         {
             product.Id = Guid.NewGuid();
-            new ProductValidator().Validate(product);
+            new ProductValidator().ValidateProduct(product);
 
             _productService.CreateProduct(product);
 
@@ -66,7 +66,7 @@ namespace refactor_me.Controllers
         [HttpPut]
         public HttpResponseMessage Update(Guid id, Product product)
         {
-            new ProductValidator().Validate(product);
+            new ProductValidator().ValidateProduct(product);
 
             var existingProduct = _productService.GetProductById(id);
 

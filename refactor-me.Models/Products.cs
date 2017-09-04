@@ -4,7 +4,7 @@ namespace refactor_me.Models
 {
     public class Products
     {
-        public List<Product> Items { get; private set; }
+        public List<Product> Items { get; }
 
         public Products()
         {

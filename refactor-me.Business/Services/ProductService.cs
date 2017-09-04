@@ -15,7 +15,7 @@ namespace refactor_me.Business.Services
         public ProductService(IProductRepository productRepository, IEnumerable<IMapper> mappers)
         {
             _productRepository = productRepository;
-            _mappers = mappers.ToList();
+            Mappers = mappers.ToList();
         }
 
         public Guid CreateProduct(Product product)

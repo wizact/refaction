@@ -49,7 +49,7 @@ namespace refactor_me.Controllers
         {
             ValidateProductExists(productId);
 
-            new ProductOptionValidator().Validate(productOption);
+            new ProductOptionValidator().ValidateProductOption(productOption);
 
             productOption.Id = Guid.NewGuid();
             productOption.ProductId = productId;
@@ -67,7 +67,7 @@ namespace refactor_me.Controllers
             ValidateProductExists(productId);
 
             var existingProductOption = _productOptionService.GetProductOption(id);
-            new ProductOptionValidator().Validate(productOption);
+            new ProductOptionValidator().ValidateProductOption(productOption);
 
             if (existingProductOption == null)
             {

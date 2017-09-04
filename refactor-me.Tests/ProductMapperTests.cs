@@ -14,6 +14,7 @@ namespace refactor_me.Tests
             var productMapper = new ProductMapper();
 
             // Act:
+            // ReSharper disable once ExpressionIsAlwaysNull
             var model = productMapper.ToModel(productEntity);
 
             // Assert

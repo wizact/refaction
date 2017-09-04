@@ -8,30 +8,30 @@ using refactor_me.Models;
 
 namespace refactor_me.Validators
 {
-    public abstract class BaseValidator<ModelType>
+    public abstract class BaseValidator<TModelType>
     {
-        List<ValidationResult> results = new List<ValidationResult>();
+        readonly List<ValidationResult> _results = new List<ValidationResult>();
         private const string RequestBodyIsRequiredErrorMessage = "Request body is required";
 
-        public void Validate(ModelType model)
+        protected void Validate(TModelType model)
         {
             if (model == null)
             {
-                results.Add(new ValidationResult(RequestBodyIsRequiredErrorMessage));
+                _results.Add(new ValidationResult(RequestBodyIsRequiredErrorMessage));
                 return;
             }
 
             var context = new ValidationContext(model, null, null);
-            Validator.TryValidateObject(model, context, results, true);
+            Validator.TryValidateObject(model, context, _results, true);
         }
 
         protected void ThrowIfInvalid()
         {
-            if (results.Count > 0)
+            if (_results.Count > 0)
             {
                 var message = new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
 
-                var errorMessage = new ValidationResponse { ErrorMessage = results.Select(result => result.ErrorMessage).ToList() };
+                var errorMessage = new ValidationResponse { ErrorMessage = _results.Select(result => result.ErrorMessage).ToList() };
                 message.Content = new ObjectContent(errorMessage.GetType(), errorMessage, new JsonMediaTypeFormatter());
                 throw new HttpResponseException(message);
             }

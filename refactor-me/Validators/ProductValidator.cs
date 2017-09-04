@@ -4,9 +4,9 @@ namespace refactor_me.Validators
 {
     public class ProductValidator: BaseValidator<Product>
     {
-        public new void Validate(Product model)
+        public void ValidateProduct(Product model)
         {
-            base.Validate(model);
+            Validate(model);
             ThrowIfInvalid();
         }
     }

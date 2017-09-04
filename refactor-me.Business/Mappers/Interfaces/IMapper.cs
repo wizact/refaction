@@ -2,10 +2,10 @@
 {
     public interface IMapper { }
 
-    public interface IMapper<ModelType, EntityType>: IMapper
+    public interface IMapper<TModelType, TEntityType>: IMapper
     {
-        ModelType ToModel(EntityType entity);
+        TModelType ToModel(TEntityType entity);
 
-        EntityType ToEntity(ModelType model);
+        TEntityType ToEntity(TModelType model);
     }
 }

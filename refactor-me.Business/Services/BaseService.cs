@@ -6,11 +6,11 @@ namespace refactor_me.Business.Services
 {
     public abstract class BaseService
     {
-        internal IList<IMapper> _mappers;
+        internal IList<IMapper> Mappers;
 
-        internal IMapper<ModelType, EntityType> GetMapper<ModelType, EntityType>()
+        internal IMapper<TModelType, TEntityType> GetMapper<TModelType, TEntityType>()
         {
-            return _mappers.FirstOrDefault(m => (m as IMapper<ModelType, EntityType>) != null) as IMapper<ModelType, EntityType>;
+            return Mappers.FirstOrDefault(m => (m as IMapper<TModelType, TEntityType>) != null) as IMapper<TModelType, TEntityType>;
         }
     }
 }
